@@ -1,0 +1,19 @@
+def Selection(a)
+    n=a.length
+   starting = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+   for i in 0...n 
+    min=i
+    for j in (i+1)...n
+        if a[j]<a[min]
+            temp=a[j]
+            a[j]=a[min]
+            a[min]=temp
+        end
+    end
+   end
+   ending = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+   elapsed = ending - starting
+   return elapsed 
+end
+Array1=[1,34,2,54656,3543,678787,334,6,343,76,453,67]
+puts "Time take by SelectionSort #{Selection(Array1)} "

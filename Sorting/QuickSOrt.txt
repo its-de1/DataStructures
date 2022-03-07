@@ -1,0 +1,29 @@
+def Quick(a,lo,hi)
+starting = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+    if lo<hi
+        p=partition(a,lo,hi)
+        Quick(a,lo,p-1)
+        Quick(a,p+1,hi)
+    end
+  ending = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+   elapsed = ending - starting
+   return a
+end
+
+def partition(a,lo,hi)
+  pivot = a[hi]
+  pIndex = lo
+  i = lo
+    while i < hi
+      if a[i].to_i <= pivot.to_i
+        a[i], a[pIndex] = a[pIndex], a[i]
+        pIndex += 1
+      end
+    i += 1
+    end
+    a[pIndex], a[hi]= a[hi], a[pIndex]
+    return pIndex
+end
+
+Arr1=[1,34,2,54656,3543,678787,334,6,343,76,453,67]
+puts "Time take by QuickSort #{Quick(Arr,0,11)} "

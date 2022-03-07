@@ -1,0 +1,19 @@
+def Bubble(a)
+   n=a.length
+   starting = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+   for i in 0...n-1
+    for j in 0...n-i-1
+        if a[j]>a[j+1]
+            temp=a[j]
+            a[j]=a[j+1]
+            a[j+1]=temp
+        end
+    end
+   end
+   ending = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+   elapsed = ending - starting
+   return elapsed 
+end
+
+Array1=[1,34,222,1540,3543,6787,33433,600000,3430000]
+puts "Time take by Bubble Sort #{Bubble(Array1)} "
