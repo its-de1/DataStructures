@@ -1,0 +1,45 @@
+#Stack
+class Stack
+   def initialize
+     @max=1000
+     @top=-1
+     @arr=Array.new(@max)
+   end
+
+   def isEmpty
+      @top<0;
+   end
+   def isFull
+       if @top>=@max-1
+           return true
+       end
+   end
+
+   def push (x)
+       if !isFull()
+          @top=@top+1
+          @arr[@top]=x;
+          puts "#{x} is pushed into stack,#{@top}-top value"
+       end
+   end
+  
+   def pop ()
+       if !isEmpty()
+          x=@arr[@top]
+          @arr.delete_at(@top)
+          @top=@top-1
+       end
+      return x
+    end
+end
+
+stk1=Stack.new
+stk1.isEmpty()
+stk1.isFull()
+stk1.push(1)
+stk1.push(2)
+stk1.push(3)
+x=stk1.pop()
+if x!=-1
+	puts "#{x} is poped out";
+end

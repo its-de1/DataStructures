@@ -1,0 +1,159 @@
+#Doubly Linked List
+class Node
+    attr_accessor :val, :next, :prev
+   def initialize(val)
+       @val = val  
+       @next = nil
+       @prev = nil
+   end
+end
+
+class DoublyLinkedList
+   attr_accessor :head, :tail, :length
+   def initialize()
+       @head = nil
+       @tail = nil
+       @length = 0
+   end
+
+#Adding at End
+   def push(val)
+    new_node = Node.new(val)
+    if @length==0
+        @head = new_node
+        @tail = new_node
+    else 
+        @tail.next = new_node
+        new_node.prev = @tail
+        @tail = new_node
+     end
+     @length += 1
+     return self
+  end
+#Removing from ENd
+  def pop
+    return nil if !@head
+    old_tail = @tail
+    if @length==1
+        @head = nil
+        @tail = nil
+    else 
+        @tail = old_tail.prev
+        old_tail.next = nil
+        old_tail.prev = nil 
+    end
+    @length -= 1
+    return old_tail
+   end
+#Printing List
+   def printList()
+    temp=@head
+    while(temp!=@tail)
+	print temp.prev , '---> ',temp.val,'---> '
+	temp=temp.next
+    end
+    print temp.prev , '---> ',temp.val,'---> ',temp.next
+   end
+
+#Removing from start
+   def shift
+        return nil if !@head
+	temp=@head
+	if @length==1
+		@head=nil
+		@tail=nil
+	else
+		@head=temp.next
+		@head.prev=nil
+		temp.next=nil
+	end
+	@length-=1
+ 	return temp
+   end
+ #Adding from start  
+  def unshift(val)
+  	newNode=Node.new(val)
+	if @length==0
+		@head=nil
+		@tail=nil
+	else
+		@head.prev=newNode
+		newNode.next=@head
+		newNode.prev=nil
+		@head=newNode
+	end
+	@length+=1
+	return self
+  end
+
+#Retrieve a value at specific index
+  def get(index)
+	if index<0 || index>@length
+		return nil
+	else
+		i=0
+		temp=@head
+		while(i!=index)
+			temp=temp.next
+			i+=1
+		end
+		return temp.val			
+	end
+  end
+
+#changing the value at specific index 
+  def set(index,val)
+	node = get(index)
+    	if !!node 
+        	node.val = val
+        	return true
+    	else 
+        	return false
+      end
+ end
+
+   
+#Insert element
+   def insert(index,val)
+	if index<0 || index>@length
+		return nil
+	else
+		if index==0
+			unshift(val)
+		elsif index=@length-1
+			push(val)
+		else
+			temp=@head
+			newNode=Node.new(val)
+			prevNode=get(index-1)
+			nextNode=prevNode.next
+			prevNode.next=newNode
+			newNode.prev=prev_node
+			newNode.next=nextNode
+			@length+=1
+		end
+	end
+     end
+	
+     def delete(index)
+	if index<0 || index>@length
+		return nil
+	else
+		if index==0
+			shift()
+		elsif index=@length-1
+			pop()
+		else
+			removeNode=get(index-1)
+			prevNode=removeNode.prev
+			afterNode=removeNode.next
+			removeNode.prev=nil
+			prevNode.next=afterNode.prev
+			afterNode.prev=prevNode.next
+			removeNode.next=nil
+			return removeNode.val
+		end		
+        end
+     end
+		
+end
