@@ -1,0 +1,52 @@
+#Circular LinkedList
+class Node
+    attr_accessor :val, :next
+   def initialize(val)
+       @val = val  
+       @next = nil
+   end
+end
+
+class CircularLinkedList
+   attr_accessor :head,:length
+   def initialize()
+       @head = nil
+       @length = 0
+   end
+
+#Insert between two Node
+   def insert_next(prev,data)
+	newNode=Node.new(data)
+	if @length==0
+		@head=newNode.next=newNode
+	else
+		newNode.next=prev.next
+		prev.next=newNode
+	end
+	@length+=1
+    end
+
+#insert at end
+     def insert(data)
+	newNode=Node.new(data)
+      	return insert_next(nil,data)if length==0
+      	return insert_next(@head,data) if length==1
+      	temp=@head
+	i=0
+      	while i<length
+		temp=temp.next
+		i++
+	end
+	insert_node(temp,data)
+     end	
+    #printList
+      def printList()
+          temp=@head
+          temp1=temp.next
+	  print temp.val,'-->'
+          while(temp1!=temp)
+               print temp1.val,'-->'
+	       temp1=temp1.next	
+          end
+      end
+end
