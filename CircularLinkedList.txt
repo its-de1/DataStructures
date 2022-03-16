@@ -6,21 +6,22 @@ class Node
    end
 end
 class CircularLinkedList
-    attr_accessor :head,:length
+    attr_accessor :head,:length,:current
    def initialize()
        @head = nil
         @length = 0
    end
- #Insert between two Node
+ #Insert after previous node is known
    def insert_next(prev,data)
      newNode=Node.new(data)
      if @length==0
-        @head=newNode.next=newNode
+        @head=newNode
+	newNode.next=newNode
         puts "#{data} is inserted in head position  "
      else
         newNode.next=prev.next
         prev.next=newNode
-        puts "#{data} is inserted after #{prev.val}"
+        puts "#{data} is inserted after #{prev.val} and before #{newNode.next.val}"
      end
      @length+=1
    end
@@ -38,21 +39,20 @@ class CircularLinkedList
        insert_next(temp,data)
       end
 #printList
-     def full_scan
-    	return nil unless block_given?
-        temp = @head
-    	loop do
-          yield temp
-          break if (temp.next == @head)
-        end
-     end
-    def print
+    def printList
        if @length == 0
-          puts "empty"
+          puts "empty List"
        else
-          self.full_scan { |item| puts item.val }
+	  print "#{@head.val} -->"
+          @current=@head.next
+	  while  @current!=@head
+		print  @current.val,"-->"
+		@current=@current.next
+	  end
+          print  @current.val 	  
+       end
     end
-end
+# remove node 
 def remove node
       return nil unless node
       return nil unless @length > 0
@@ -66,25 +66,34 @@ def remove node
       remove_next prev
  end
 
- # Removes the node that is next to the specified node.
+ # Removes the node that is next to the previous node.
  def remove_next (prev)
              return nil unless @length>0
              temp=@head
              unless prev
                temp=temp.next
              else
-               if prev.next=prev
+               if prev.next==prev
                   @head=nil
-               else
+		 @length-=1
+	        puts " if #{prev.val} is removed from the list. Length=#{@length}. Previous.Next=#{prev.val}"
+	       else  
                    removeNode=prev.next  
                    prev.next=removeNode.next
                    removeNode.next=nil
-                  if removeNode==@head
+                   if removeNode==@head
                         @head=removeNode.next
+		   @length-=1
+	           puts "#{removeNode.val} is removed from the list. Length=#{@length}. Previous.Next=#{prev.val}"
                    end
                  end
               end
-             @length-=1
+	            
           end
- end
 
+ def clear
+	while @length>0
+		remove @head
+	end
+ end
+end
