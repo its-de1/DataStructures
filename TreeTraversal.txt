@@ -7,12 +7,12 @@ class Traversal
      def print_Inorder(node)
         return if node.nil?
         print_Inorder(node.left)
-        print "node.data " 
+        print "#{node.data} "  
         print_Inorder(node.right)
      end
     def print_PreOrder(node)
         return if node.nil?
-        print "node.data "
+        print "#{node.data} "   
         print_PreOrder(node.left)
         print_PreOrder(node.right)
     end
@@ -20,7 +20,7 @@ class Traversal
         return if node.nil?
         print_PostOrder(node.left)
         print_PostOrder(node.right)
-	print " node.data"   
+	print "#{node.data} "     
     end
   
     def InorderLoopWithStack(root)
@@ -34,9 +34,9 @@ class Traversal
             if stack.empty?
                break
             else
-                x=stack.pop
-                print "#{x.data} "
-                x=x.right
+                temp=stack.pop
+                print "#{temp.data} "
+                temp=temp.right
             end
           end
         end
@@ -62,23 +62,82 @@ class Traversal
     def PostOrderLoop(root)
         stack=Stack.new
         temp=root
-        while(true)
+        while(temp!=nil || !stack.empty?)
            if !temp.nil?
+              
               stack.push(temp)
               temp=temp.left
            else
-              if stack.empty?
-               break
-              else
-                temp=stack.pop
-                temp=temp.right
-                print "#{temp.data} "
-               end
-            end
+                   prev=stack.peek().right
+                   if prev==nil
+                       prev=stack.pop()
+                       print "#{prev.data} "
+                       while !stack.empty? && prev==stack.peek().right
+                          prev=stack.pop()
+                          print "#{prev.data} "
+                       end
+                else
+                    temp=prev
+                end
+           end
         end
+    end
+
+   def BreadthSearch(node)
+      queue=Queue.new
+      output=[]
+      queue.enqueue(node)
+      while (!queue.empty?)
+           current=queue.dequeue
+           output.push(current.data)
+           q.enqueue(current.data.left) if !current.data.left
+           q.enqueue(current.data.right) if !current.data.right
+      end
+      puts output.join(" ")
     end
 end
 
+class Queue
+  @data
+  @tail
+  def initialize()
+      @data=[]
+      @tail=-1
+  end
+  def enqueue(node)
+      @data<<node
+      @tail+=1
+  end
+   def dequeue()
+      result = @data[0]
+      @data.delete_at(0)
+      @tail -= 1
+      return result
+   end
+  def empty?
+       if @tail==-1
+          return false
+       end
+  end
+end
+class Stack
+   @data
+   def initialize() 
+       @data=[]
+   end
+   def push(data)
+      return @data.push(data)
+   end
+   def pop
+     return @data.pop
+   end
+   def empty?
+     return @data.empty?
+   end
+   def peek()
+     return @data.last
+   end
+end
 
 class TreeNode
   attr_accessor :data,:left,:right
@@ -99,3 +158,11 @@ root.right.left=TreeNode.new(5)
 root.right.right=TreeNode.new(6) 
 
 tree=Traversal.new(root)
+
+
+
+
+
+
+
+ 
