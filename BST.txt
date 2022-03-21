@@ -12,7 +12,7 @@ class BST
     attr_accessor :root, :size
     def initialize()
         @root = nil
-        @size = 0;
+        @size = 0
     end
 
     def insert(value)
@@ -38,9 +38,22 @@ class BST
         @size += 1
     end
 end
+
 def inorder(node)
         return if node.nil?
         inorder(node.left)
         print "#{node.value} "  
         inorder(node.right)
+end
+
+def contains?(value, node = self.root)
+        if node == nil
+            return false
+        elsif value < node.value 
+            return contains?(value, node.left)
+        elsif value > node.value
+            return contains?(value, node.right)
+        else
+            return true
+        end  
 end
