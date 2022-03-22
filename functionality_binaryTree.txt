@@ -1,151 +1,92 @@
-class Node
-attr_accessor :left, :right,:value
-       
-   def initialize(value)
-        @value=value
-        @left=nil
-        @right=nil
-   end
-end
-def inorder(node)
-        return if node.nil?
-        inorder(node.left)
-        print "#{node.value} "  
-        inorder(node.right)
-end
-def insert(temp,key)
-   if not temp
-      root=Node.new(key)
-      return
-   end
-   q=[]
-   q.append(temp)
-   while(q.length())
-      temp=q[0]
-      q.pop(0)
-      if not temp.left
-            temp.left=Node.new(key)
-            break
-      else
-          q.append(temp.left)
-      end
-      
-      if not temp.right
-            temp.right=Node.new(key)
-            break
-      else
-          q.append(temp.right)
-      end
-    end
-end
-    	
-
-root=Node.new(0)
-root.left=Node.new(1)
-root.right=Node.new(2)
-root.left.left=Node.new(3)
-root.right.left=Node.new(5)
-puts "Inorder Traversal of Tree"
-root.inorder(root)
-root.insertNode(root,4)
-puts "Inorder Traversal of Tree after insertion"
-root.inorder(root)
-root.insertNode(root,5)
-puts "Inorder Traversal of Tree after insertion"
-root.inorder(root)
-
-
-
-#delete a node
-class Node 
- attr_accessor :left, :right,:value
- def initialize(value)
-    @value=value
-    @left=nil
-    @right=nil
- end
-end
-
-def inorder(node)
-        return if node.nil?
-        inorder(node.left)
-        print "#{node.value} "  
-        inorder(node.right)
-end
-
-def deleteLast(root,deleteNode)
-   q=[]
-   q.append(root)
-   while(q.empty?)
-       temp=q.pop(0)
-       if temp.value==deleteNode.value
-          temp=nil
-          break
-          return
-       end
-       if temp.right
-          if temp.right.value ==  deleteNode.value
-              temp.right=nil
-              return
-          else
-              q.append(temp.right)
-          end
-       end
-       if temp.left
-          if temp.left.value ==  deleteNode.value
-              temp.left=nil
-              return
-          else
-              q.append(temp.left)
-          end
-       end
-   end
-end
-
-def deletion(root,key)
-   if root==nil
-        return nil
-   end
-   if root.left==nil && root.right==nil
-        if root.value==key
-             return nil
-        else
-             return root
+class Binary
+     attr_accessor :root
+     def initialize()
+         @root=nil
+     end
+     
+     class Node
+        attr_accessor :left, :right,:value 
+        def initialize(value)
+            @value=value
+            @left=nil
+            @right=nil
         end
-   end
-   key_node=nil
-   q=[]
-   q.append(root)
-   temp=nil
-   while !q.empty?
-       temp=q.pop()
-       puts "!! #{temp.value}  !!"
-       if temp.value==key
-          key_node=temp
-          break
-       end
-       if temp.left
-          q.append(temp.left)
-       end
-       if temp.right
-          q.append(temp.right)
-       end
-   end
-   if key_node!=nil
-       x=temp.value
-       deleteLast(root,temp)
-       key_node.value=x 
-   end
-   return root
+      end
+  
+     def inorder(node)
+        return if node.nil?
+        inorder(node.left)
+        print "#{node.value} "  
+        inorder(node.right)
+     end
+     
+     def insert(value)
+        if @root == nil
+            @root = Node.new(value)    
+            return @root
+        else
+            temp=@root
+            q=[]
+            q.append(temp)
+            while(q.length())
+                temp=q[0]
+                q.pop()
+                if not temp.left
+                   temp.left=Node.new(value)
+                   break
+                else
+                   q.push(temp.left)
+                end
+                if not temp.right
+                   temp.right=Node.new(value)
+                   break
+                else
+                   q.push(temp.right)
+                end
+            end
+         end
+     end
+
+     def deletion(value)
+         if @root==nil
+              return nil
+         end
+         if @root.left==nil and @root.right==nil
+            if root.value==key
+               return nil
+            end
+         end
+         
+         key_node=nil
+         temp=nil
+         last=nil
+         q=Queue.new
+         q.push(root)
+         while !q.empty?
+              
+              temp=q.pop()
+              puts "!! #{temp.value}  !!"
+              if temp.value==value
+                  key_node=temp
+              end
+              if temp.left
+                 last=temp
+                 q.push(temp.left)
+              end
+              if temp.right
+                 last=temp
+                 q.push(temp.right)
+              end
+         end
+         if key_node!=nil
+            key_node.value=temp.value
+            if last.right==temp
+               last.right=nil
+            else
+               last.left=nil
+            end
+            temp=nil
+         end
+        return root
+     end
 end
-
-root=Node.new(13)
-root.left=Node.new(12)
-root.left.left=Node.new(4)
-root.left.right=Node.new(19)
-root.right=Node.new(10)
-root.right.left=Node.new(16)
-root.right.right=Node.new(9)
-
-
-
