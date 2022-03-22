@@ -1,4 +1,5 @@
 # BST
+# BST
 class Node 
     attr_accessor :value, :left, :right
     def initialize(value)
@@ -12,41 +13,133 @@ class BST
     attr_accessor :root, :size
     def initialize()
         @root = nil
-        @size = 0
+        @size = 0;
     end
-
+    class Node 
+        attr_accessor :value, :left, :right
+        def initialize(value)
+            @value = value
+            @left = nil
+            @right = nil
+        end
+    end
     def insert(value)
         if @root == nil
             @root = Node.new(value)    
+            return @root
         else 
-            curr_node = @root
-            previous_node = @root
-            while curr_node != nil 
-                previous_node = curr_node
-                if value < curr_node.value 
-                    curr_node = curr_node.left
+            temp= @root
+            temp1 = @root
+            while temp != nil 
+                temp1  = temp
+                if value < temp.value 
+                    temp = temp.left
                 else
-                    curr_node = curr_node.right
+                    temp = temp.right
                 end
             end
-            if value < previous_node.value 
-                previous_node.left = Node.new(value)
+            if value< temp1.value 
+                temp1.left = Node.new(value)
             else
-                previous_node.right = Node.new(value)
+                temp1.right = Node.new(value)
             end        
         end
         @size += 1
     end
-end
 
-def inorder(node)
+    def deletion(node,value)
+        if node==nil
+           return node
+        end
+        if value<node.value
+          node.left=deletion(node.left,value)
+           return node
+        elsif value> node.value
+           node.right=deletion(node.right,value)
+           return node
+        end
+   
+        if node.left ==nil && node.right ==nil
+           return nil
+        end
+        if node.left==nil
+           temp=node.right
+           node=nil
+           return temp
+        elsif node.right==nil
+           temp=node.left
+           node=nil
+           return temp
+        end
+        successorParent=node
+        successor=node.right
+        while successor.left!=nil
+             successorParent=successor
+             successor=successor.left
+        end
+        if  successorParent!=node
+            successorParent.left=successor.right
+        else
+            successorParent.right=successor.right
+        end     
+        node.value=successor.value
+        @size=@size-1
+        return node
+     end
+   
+  def inorder(node)
         return if node.nil?
         inorder(node.left)
         print "#{node.value} "  
         inorder(node.right)
-end
-
-def contains?(value, node = self.root)
+  end
+  
+  
+  def search(node,value)
+      if node==nil 
+         return false
+      end
+      if value==node.value
+         return true
+      elsif node.value<value
+         search(node.right,value)
+      else
+         search(node.left,value)
+   end
+  
+  def treemax(node)
+      if node==nil
+         return nil
+      end
+      while node.right!=nil
+         node=node.right
+      end
+      return node.value
+  end
+  
+  def treemin(node)
+      if node==nil
+         return nil
+      end
+      while node.left!=nil
+         node=node.left
+      end
+      return node.value
+  end
+  
+  def treeHeight(node)
+      if node==nil
+         return -1
+      end
+      lheight=treeHeight(node.left)
+      rheight=treeHeight(node.right)
+      if (lheight<rheight)
+          return rheight+1
+      else
+          return lheight+1
+      end
+   end
+  def contains?(value, node = self.root)
         if node == nil
             return false
         elsif value < node.value 
@@ -56,4 +149,5 @@ def contains?(value, node = self.root)
         else
             return true
         end  
+  end
 end
