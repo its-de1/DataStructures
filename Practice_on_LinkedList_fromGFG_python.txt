@@ -1,0 +1,576 @@
+#Rotate a LinkedList
+
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class Solution:
+    
+    #Function to rotate a linked list.
+    def rotate(self, head, k):
+        # code here
+        if (k==0):
+            return head
+        curr=head
+        count=0
+        tail=head
+        while(tail.next!=None):
+            tail=tail.next
+        tail.next=head
+        s=head
+        while(count<k-1):
+            count+=1
+            s=s.next
+        head=s.next
+        s.next=None
+        return head
+
+#{ 
+#  Driver Code Starts
+# driver
+
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+    
+    def insert(self,val):
+        if self.head is None:
+            self.head = Node(val)
+            self.tail = self.head
+        else:
+            self.tail.next = Node(val)
+            self.tail = self.tail.next
+
+def printList(n):
+    while n:
+        print(n.data, end=' ')
+        n = n.next
+    print()
+
+if __name__=="__main__":
+    for _ in range(int(input())):
+        n = int(input())
+        arr = [int(x) for x in input().split()]
+        k = int(input())
+        
+        lis = LinkedList()
+        for i in arr:
+            lis.insert(i)
+        
+        head = Solution().rotate(lis.head,k)
+        printList(head)
+# } Driver Code Ends
+
+------------------------------------------------------------------
+
+#Check if Linked List is Palindrome
+
+#User function Template for python3
+'''
+	Your task is to check if given linkedlist
+	is a pallindrome or not.
+	
+	Function Arguments: head (reference to head of the linked list)
+	Return Type: boolean , no need to print just return True or False.
+
+	{
+		# Node Class
+		class Node:
+		    def __init__(self, data):   # data -> value stored in node
+		        self.data = data
+		        self.next = None
+	}
+
+	Contributed By: Nagendra Jha
+'''
+#Function to check whether the list is palindrome.
+class Solution:
+    def isPalindrome(self, head):
+        #code here
+            fast,slow=head,head
+            rev=None
+            while fast and fast.next:
+                fast=fast.next.next
+                newslow=slow.next
+                slow.next=rev
+                rev=slow
+                slow=newslow
+            if fast:
+                slow=slow.next
+            while slow:
+                if slow.data!=rev.data:
+                    return False
+                slow=slow.next
+                rev=rev.next
+            return True
+#{ 
+#  Driver Code Starts
+
+
+import atexit
+import io
+import sys
+
+class Node:
+    def __init__(self, data):   # data -> value stored in node
+        self.data = data
+        self.next = None
+
+# Linked List Class
+class LinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+
+    # creates a new node with given value and appends it at the end of the linked list
+    def append(self, new_value):
+        new_node = Node(new_value)
+        if self.head is None:
+            self.head = new_node
+            self.tail = new_node
+            return
+        self.tail.next = new_node
+        self.tail = new_node 
+
+if __name__ == '__main__':
+    t=int(input())
+    for cases in range(t):
+        n = int(input())
+        a = LinkedList() # create a new linked list 'a'.
+        nodes_a = list(map(int, input().strip().split()))
+        for x in nodes_a:
+            a.append(x)  # add to the end of the list
+
+        if Solution().isPalindrome(a.head):
+            print(1)
+        else:
+            print(0)
+# } Driver Code Ends
+
+-------------------------------------------------------------------
+
+#Reverse a LinkedList
+#function Template for python3
+
+"""
+# Node Class
+
+class node:
+    def __init__(self, val):
+        self.data = val
+        self.next = None
+
+"""
+
+class Solution:
+    #Function to reverse a linked list.
+    def reverseList(self, head):
+        # Code here
+        curr=head
+        prev=None
+        while(curr!=None):
+            next=curr.next
+            curr.next=prev
+            prev=curr
+            curr=next
+        head=prev
+        return head
+
+#{ 
+#  Driver Code Starts
+# Node Class    
+class Node:
+    def __init__(self, val):
+        self.data = val
+        self.next = None
+
+# Linked List Class
+class Linked_List:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+
+    def insert(self, val):
+        if self.head is None:
+            self.head = Node(val)
+            self.tail = self.head
+        else:
+            self.tail.next = Node(val)
+            self.tail = self.tail.next
+
+def printList(head):
+    tmp = head
+    while tmp:
+        print(tmp.data, end=' ')
+        tmp=tmp.next
+    print()
+
+if __name__=='__main__':
+    for i in range(int(input())):
+        n = int(input())
+        arr = [int(x) for x in input().split()]
+        
+        lis = Linked_List()
+        for i in arr:
+            lis.insert(i)
+        
+        newHead = Solution().reverseList(lis.head)
+        printList(newHead)
+
+# } Driver Code Ends
+
+-------------------------------------------------------------------
+
+#Middleelement in LinkedList
+
+'''
+class node:
+    def __init__(data):
+        self.data = data
+        self.next = None
+'''
+class Solution:
+    #  Should return data of middle node. If linked list is empty, then  -1
+    def findMid(self, head):
+        # Code here
+        # return the value stored in the middle node
+        temp=head
+        length=0
+        while (temp!=None):
+              length=length+1
+              temp=temp.next
+        if(length%2!=0):
+            length=length/2
+            i=0
+            temp=head
+            while(i<length-1):
+                 temp=temp.next
+                 i+=1
+            return temp.data
+        else:
+            length=length/2
+            i=0
+            temp=head
+            while(i<length):
+                 temp=temp.next
+                 i+=1
+            return temp.data
+#{ 
+#  Driver Code Starts
+# Initial Template for Python3
+
+# Node Class    
+class node:
+    def __init__(self):
+        self.data = None
+        self.next = None
+
+# Linked List Class
+class Linked_List:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+        
+    def insert(self, data):
+        if self.head == None:
+            self.head = node()
+            self.tail = self.head
+            self.head.data = data
+        else:
+            new_node = node()
+            new_node.data = data
+            new_node.next = None
+            self.tail.next = new_node
+            self.tail = self.tail.next
+
+def printlist(head):
+    temp = head
+    while temp is not None:
+        print(temp.data, end=" ")
+        temp = temp.next
+    print('')
+
+# Driver Program
+if __name__ == '__main__':
+    t = int(input())
+    for i in range(t):
+        list1 = Linked_List()
+        n = int(input())
+        values = list(map(int, input().strip().split()))
+        for i in values:
+            list1.insert(i)
+        ob = Solution()
+        print(ob.findMid(list1.head))
+
+
+# } Driver Code Ends
+
+--------------------------------------------------------------------
+#Nth Node from end of LinkedList
+
+#User function Template for python3
+'''
+
+
+	{
+		# Node Class
+		class Node:
+		    def __init__(self, data):   # data -> value stored in node
+		        self.data = data
+		        self.next = None
+	}
+'''
+#Function to find the data of nth node from the end of a linked list
+def getNthFromLast(head,n):
+    #code here
+    temp=head
+    length=0
+    while(temp!=None):
+        length=length+1
+        temp=temp.next
+    temp=head
+    if length<n:
+        return -1
+    else:
+        length=length-n
+        i=0
+        while(i<=length-1):
+           temp=temp.next
+           i=i+1
+    return temp.data
+     
+#{ 
+#  Driver Code Starts
+
+import atexit
+import io
+import sys
+
+_INPUT_LINES = sys.stdin.read().splitlines()
+input = iter(_INPUT_LINES).__next__
+_OUTPUT_BUFFER = io.StringIO()
+sys.stdout = _OUTPUT_BUFFER
+
+@atexit.register
+
+def write():
+    sys.__stdout__.write(_OUTPUT_BUFFER.getvalue())
+    
+# Node Class
+class Node:
+    def __init__(self, data):   # data -> value stored in node
+        self.data = data
+        self.next = None
+
+# Linked List Class
+class LinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+
+    # creates a new node with given value and appends it at the end of the linked list
+    def append(self, new_value):
+        new_node = Node(new_value)
+        if self.head is None:
+            self.head = new_node
+            self.tail = new_node
+            return
+        self.tail.next = new_node
+        self.tail = new_node
+
+if __name__ == '__main__':
+    t=int(input())
+    for cases in range(t):
+        n,nth_node = map(int, input().strip().split())
+        a = LinkedList() # create a new linked list 'a'.
+        nodes_a = list(map(int, input().strip().split()))
+        for x in nodes_a:
+            a.append(x)  # add to the end of the list
+        print(getNthFromLast(a.head,nth_node))
+# } Driver Code Ends
+
+-------------------------------------------------------------------
+
+Remove Loop in LinkedList
+
+'''
+# node class:
+
+class Node:
+    def __init__(self,val):
+        self.next=None
+        self.data=val
+
+'''
+
+class Solution:
+    #Function to remove a loop in the linked list.
+    def removeLoop(self, head):
+
+        slow = fast = head
+        while fast and fast.next:
+            slow, fast = slow.next, fast.next.next
+            if slow == fast: return 1
+        else: return 0 # if not (fast and fast.next): return None
+        while head != slow:
+            head, slow = head.next, slow.next
+        return head
+#{ 
+#  Driver Code Starts
+# driver code:
+
+class Node:
+    def __init__(self,val):
+        self.next=None
+        self.data=val
+
+class linkedList:
+    def __init__(self):
+        self.head=None
+        self.tail=None
+    
+    def add(self,num):
+        if self.head is None:
+            self.head=Node(num)
+            self.tail=self.head
+        else:
+            self.tail.next=Node(num)
+            self.tail=self.tail.next
+    
+    def isLoop(self):
+        if self.head is None:
+            return False
+        
+        fast=self.head.next
+        slow=self.head
+        
+        while slow != fast:
+            if fast is None or fast.next is None:
+                return False
+            fast=fast.next.next
+            slow=slow.next
+        
+        return True
+    
+    def loopHere(self,position):
+        if position==0:
+            return
+        
+        walk=self.head
+        for _ in range(1,position):
+            walk=walk.next
+        self.tail.next=walk
+    
+    def length(self):
+        walk=self.head
+        ret=0
+        while walk:
+            ret+=1
+            walk=walk.next
+        return ret
+
+if __name__=="__main__":
+    t=int(input())
+    for _ in range(t):
+        n=int(input())
+        arr=tuple(int(x) for x in input().split())
+        pos=int(input())
+        
+        ll = linkedList()
+        for i in arr:
+            ll.add(i)
+        ll.loopHere(pos)
+        
+        Solution().removeLoop(ll.head)
+        
+        if ll.isLoop() or ll.length()!=n:
+            print(0)
+            continue
+        else:
+            print(1)
+
+# } Driver Code Ends
+
+------------------------------------------------------------------
+
+#Detect Loop in LinkedList
+
+#User function Template for python3
+'''
+		# Node Class
+		class Node:
+		    def __init__(self, data):   # data -> value stored in node
+		        self.data = data
+		        self.next = None
+	
+'''
+class Solution:
+    #Function to check if the linked list has a loop.
+    def detectLoop(self, head):
+        #code here
+        temp=head
+        temp1=head
+        while(temp1!=None and temp1.next!=None):
+            temp=temp.next
+            temp1=temp.next.next
+            if (temp==temp1):
+               return True
+            if (temp1 == None or temp1.next == None):
+               return False;
+        
+            
+#{ 
+#  Driver Code Starts
+#Initial Template for Python 3
+
+# Node Class
+class Node:
+    def __init__(self, data):   # data -> value stored in node
+        self.data = data
+        self.next = None
+
+# Linked List Class
+class LinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+    
+    # creates a new node with given value and appends it at the end of the linked list
+    def insert(self, val):
+        if self.head is None:
+            self.head = Node(val)
+            self.tail = self.head
+        else:
+            self.tail.next = Node(val)
+            self.tail = self.tail.next
+    
+    #connects last node to node at position pos from begining.
+    def loopHere(self,pos):
+        if pos==0:
+            return
+        
+        walk = self.head
+        for i in range(1,pos):
+            walk = walk.next
+        
+        self.tail.next = walk
+
+if __name__ == '__main__':
+    for _ in range(int(input())):
+        n = int(input())
+        
+        LL = LinkedList()
+        for i in input().split():
+            LL.insert(int(i))
+        
+        LL.loopHere(int(input()))
+        
+        print(Solution().detectLoop(LL.head))
+# } Driver Code Ends
