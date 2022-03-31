@@ -1021,4 +1021,255 @@ def pairWiseSwap(self, head):
             prev=prev.next.next
         return temp
 
+-------------------------------------------------------------------
+#Given a singly linked list L0 -> L1 -> … -> Ln-1 -> Ln. Rearrange the nodes in the list so that the new formed list is: L0 -> Ln -> L1 -> Ln-1 -> L2 -> Ln-2.
+from collections import deque
+def inPlace(root):
+    #code here
+    dq=deque()
+    current=root
+    current1=root
+    while current!=None:
+       dq.append(current.data)
+       current=current.next
+    position=0
+    while current1!=None:
+       if position%2!=0:
+           temp=dq.pop()
+           current1.data=temp
+           position+=1
+       else:
+           current1.data=dq.popleft()
+           position+=1
+       current1=current1.next
+    return root
+-------------------------------------------------------------------
+#Arrange Consonants and Vowels
+def arrangeCV(self, head):
+        # Code here
+        dq=deque()
+        dq1=deque()
+        current=head
+        while current!=None:
+            if current.data=='a' or current.data=='e' or current.data==current.data=='i' or current.data=='o' or current.data=='u':
+               dq.append(current.data)
+            else:
+               dq1.append(current.data)
+            current=current.next
+        current1=head
+        while current1!=None and len(dq)!=0:
+            current1.data=dq.popleft()
+            current1=current1.next
+        while current1!=None and len(dq1)!=0:
+            current1.data=dq1.popleft()
+            current1=current1.next
+        return head
 
+-------------------------------------------------------------------
+#Split Singly Linked List Alternatingly
+def alternatingSplitList(head):
+    
+    global a,b
+    #Your code here
+    if head==None:
+        return
+    c=0
+    first=Node(-1)
+    second=Node(-1)
+    firstp=first
+    secondp=second
+    temp=head
+    while temp!=None:
+        if c%2==0:
+            firstp.next=temp
+            firstp=firstp.next
+        else:
+            secondp.next=temp
+            secondp=secondp.next
+        temp=temp.next
+        c+=1
+    firstp.next=None
+    secondp.next=None
+    a=first.next
+    b=second.next
+  
+-------------------------------------------------------------------
+  #Merge Lists Alternatingly 
+  hea1=head1
+    hea2=head2
+    while hea1!=None and hea2!=None:
+        p=hea1.next
+        l=node(hea2.data)
+        l.next=p
+        hea1.next=l
+        hea1=p
+        hea2=hea2.next
+
+    return [head1,hea2]
+
+-------------------------------------------------------------------
+#Linked List that is Sorted Alternatingly 
+def sort(h1):
+    #return head
+    arr=[]
+    temp=h1
+    while temp!=None:
+        arr.append(temp.data)
+        temp=temp.next
+    arr.sort()
+    new=Node(-1)
+    new1=new
+    for i in range(0,len(arr)):
+        new.next=Node(arr[i])
+        new=new.next
+    return new1.next
+  -------------------------------------------------------------------
+  #Move all zeros to the front of the linked lis
+  def moveZeroes(self):
+        count0=0
+        if head==None:
+            return
+        temp,t=head,head
+        while(temp!=None):
+            if temp.data==0:
+                 count0+=1
+            temp=temp.next
+        while t.data==0:
+            t=t.next
+            head=t
+        while t.next is not None:
+            if t.next.data==0:
+                t.next=t.next.next
+            else:
+                t=t.next
+        while count:
+            add(head,0)
+            count-=1
+-------------------------------------------------------------------
+#Linked List in Zig-Zag fashion
+def zigzag(self, head_node):
+        # Complete this function
+        flag=True
+        curr=head_node
+        while curr.next:
+            if flag:
+                if curr.data > curr.next.data:
+                    temp=curr.data
+                    curr.data=curr.next.data
+                    curr.next.data=temp
+            else:
+                if curr.data <curr.next.data:
+                    temp=curr.data
+                    curr.data=curr.next.data
+                    curr.next.data=temp
+            flag=not flag
+            curr=curr.next
+        return head_node
+-------------------------------------------------------------------
+#Insert in Sorted way in a Sorted DLL
+def sortedInsert(head, x):
+    #code here
+    temp=Node(x)
+    c1=head
+    if head==None:
+       return temp
+       
+    if head.data>temp.data:
+       temp.next=head
+       head.prev=temp
+       return temp
+       
+    if head.next==None:
+       head.next=temp
+       temp.prev=head
+       return head
+       
+    while c1.next.data<temp.data:
+       c1=c1.next
+       if c1.next==None:
+           break
+   
+    if c1.next==None:
+       c1.next=temp
+       temp.prev=c1
+       return head
+    else:
+       temp.next=c1.next
+       c1.next.prev=temp
+       temp.prev=c1
+       c1.next=temp
+       return head
+    -------------------------------------------------------------------   
+#Deletion and Reverse in Linked List
+def deleteNode(head, key):
+    #your code goes here
+    curr=head
+    while(curr.next.data!=key):
+        curr=curr.next
+    curr.next=curr.next.next
+    return head.data==d?curr.next:head;
+    
+-------------------------------------------------------------------
+#Function to reverse the list
+def reverse(head):
+    #your code goes here
+    curr=head
+    prev=None
+    while curr is not head:
+        temp=curr.next
+        curr.next=prev
+        prev=curr
+        curr=temp
+    head.next=prev
+    return prev
+  -------------------------------------------------------------------  
+#Subtraction in Linked ListSubtraction in Linked List
+
+def subLinkedList(l1, l2): 
+    # Code here
+    # return head of difference list
+    num1 = num(l1)
+    num2 = num(l2)
+   
+    if(num1 > num2):
+        subtract(num1,num2)
+    else:
+        subtract(num2,num1)
+   
+def num(head):
+    s = ""
+    curr = head
+    while curr:
+        s += str(curr.data)
+        curr = curr.next
+    return int(s)
+   
+def subtract(n1,n2):
+    sub = str(n1 - n2)
+    LL = LinkedList()
+    for i in range(len(sub)):
+        val = int(sub[i])
+        LL.insert(val)
+        print (LL.get(i))
+    return LL.head
+ 
+-------------------------------------------------------------------
+#linked list of strings forms a palindrome 
+def compute(head): 
+    #return True/False
+ 
+    #return True/False
+    n = head
+    s = []
+    while n:
+        s.append(n.data)
+        n=n.next
+    if s == s[::-1]:
+        return True
+    else:
+        return False
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+ 
+    
+    
