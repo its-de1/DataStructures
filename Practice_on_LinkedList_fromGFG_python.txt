@@ -1269,7 +1269,279 @@ def compute(head):
     else:
         return False
 -------------------------------------------------------------------
+#Linked List Matrix
+def constructLinkedMatrix(mat,  n):
+    #your code goes here
+    head=Node(mat[0][0])
+    temp=head
+    for i in range(0,n):
+        temp2=temp
+        for j in range(0,n):
+            if j+1==n:
+                temp.right=None
+            else:
+                temp.right=Node(mat[i][j+1])
+            if i+1==n:
+                temp.bottom=None
+            else:
+                temp.botton=Node(mat[i+1][j])
+        temp=temp2
+        temp=temp.down
+    return head
 -------------------------------------------------------------------
+#Delete N nodes after M nodes of a linked list
+   def skipMdeleteN(self, head, M, N):
+        # Code here
+        temp=head
+        prev=None
+        i=-1
+        j=-1
+        while temp:
+            i=M
+            while(temp!=None and i>1):
+                temp=temp.next
+                i-=1
+            j=N
+            if temp==None:
+                break
+            while (temp.next!=None and j>0):
+                temp.next=temp.next.next
+                j-=1
+            temp=temp.next
+-------------------------------------------------------------------
+#
+Given two linked lists, the task is to complete the function findIntersection(), that returns the intersection of two linked lists. Each of the two linked list contains distinct node values.
+    def findIntersection(self, head1, head2):
+        # code here
+        # return head of intersection list
+        # 
+        ans = linkedList()
+        temp1, temp2 = head2, head1
+        aa = {}
+        while temp1:
+            aa[temp1.data] = 1 
+            temp1 = temp1.next
+       # print(aa)
+        while temp2:
+            if temp2.data in aa:
+                ans.insert(temp2.data)
+            temp2 = temp2.next
+       # printList(ans.head)
+        return ans.head
+	
+-------------------------------------------------------------------
+#Split a Circular Linked List into two halves
+def splitList(self, head, head1, head2):
+        #code here
+        if not head:
+           return None
+       
+        fast,slow = head,head
+       
+        while fast.next.next != head and fast.next != head:
+            slow = slow.next
+            fast = fast.next.next
+           
+        head2 = slow.next
+        if fast.next == head:
+            fast.next = head2
+        else:
+            fast.next.next = head2
+       
+        head1 = head
+        slow.next = head
+        #this is to emulate pass by reference in python please don't delete below line.
+        return head1,head2
+	
+-------------------------------------------------------------------
+#Multiply two linked lists
+    n=head1
+    s=""
+    while n:
+        s+=str(n.data)
+        n=n.next
+    n=head2
+    s=int(s)
+    s1=""
+    while n:
+        s1+=str(n.data)
+        n=n.next
+    s1=int(s1)
+    return (s*s1)%(10**9+7)
+    
+-------------------------------------------------------------------
+#Segregate even and odd nodes in a Link List
+def divide(self, N, head):
+        # code here
+        temp = head
+        even = []
+        odd = []
+        while temp:
+            if temp.data%2==0:
+                even.append(temp.data)
+                temp = temp.next
+            else:
+                odd.append(temp.data)
+                temp = temp.next
+        res = even + odd
+        cur = head
+        for i in res:
+            cur.data = i
+            cur=cur.next
+        return head
+-------------------------------------------------------------------
+#Decimal Equivalent of Binary Linked List
+MOD=10**9+7
+    # Code here
+    ans=0
+   cur=head
+   while cur:
+       ans*=2
+       ans+=cur.data
+       cur=cur.next
+   return ans%MOD   
+  -------------------------------------------------------------------
+#Union of Two Linked Lists 
+def union(h1,h2):
+    # code here
+    # return head of resultant linkedlist
+    n=h1
+    list1=set()
+    while n!=None:
+        list1.add(n.data)
+        n=n.next
+    n=h2
+    list2=set()
+    while n!=None:
+        list1.add(n.data)
+        n=n.next
+    z=list1.union(list2)
+    z=sorted(z)
+    count=0
+    d=Node(-1)
+    d1=d
+    for i in z:
+        temp=Node(i)
+        d.next=temp
+        d=d.next
+        count+=1
+    return d1.next
+ -------------------------------------------------------------------   
+#Merge 2 sorted linked list in reverse order		
+ n=h1
+    list1=[]
+   
+    while n!=None:
+        list1.append(n.data)
+        n=n.next
+    n=h2
+   
+    while n!=None:
+        list1.append(n.data)
+        n=n.next   
+    list1.sort(reverse=True)
+    count=0
+    d=Node(-1)
+    d1=d
+    for i in list1:
+        temp=Node(i)
+        d.next=temp
+        d=d.next
+        count+=1
+    return d1.next
+  -------------------------------------------------------------------
+  #Absolute List Sorting
+  def sortList(head):
+    '''
+    head: head of linkedList
+    Your method shouldn't print anything
+    it should transform the passed linked list
+    '''
+    n=head
+    list1=[]
+   
+    while n!=None:
+        list1.append(n.data)
+        n=n.next
+       
+    list1.sort()
+   
+    n=head
+    head=n
+   
+    count=0
+    while n!=None:
+        n.data=list1[count]
+        n=n.next
+        count+=1
+       
+    return  head
+-------------------------------------------------------------------    
+#Given two string, represented as linked lists (every character is a node->data in the linked list). Write a function compare() that works similar to strcmp(), i.e., it returns 0 if both strings are same, 1 if first linked list is lexicographically greater, and -1 if second is lexicographically greater.
+ def compare(head1, head2):
+    #return 1/-1/0
+    temp=head1
+    temp1=head2
+    s=""
+    while(temp):
+        s+= temp.data
+        temp=temp.next
+    s1=""
+    while(temp1):
+        s1+= temp1.data
+        temp1=temp1.next
+        
+    if s1==s:
+        return 0
+    if s1>s:
+        return -1
+    if s1<s:
+        return 1
+-------------------------------------------------------------------
+#Mail System Design
+     def insertToLinkList(self, List):
+        LL = None
+        tail = None
+        head = None
+        for item in List:
+            n = node()
+            n.data = item
+            if LL == None:
+                head = n
+                LL = True
+                tail = head
+            else:
+                tail.right = n
+                tail = tail.right
+        if head:
+            LL = head
+        else:
+            n = node()
+            n.data = 'EMPTY'
+            LL = n
+        return LL
+
+    def mailDesign(self, N, Q, query):
+        Read = list()
+        Unread = [i for i in range(1, N + 1)]
+        Trash = list()
  
-    
-    
+        for i in range(0, len(query) - 1, 2):
+            ID = query[i + 1]
+            command = query[i]
+            if command == 1:
+                Read.append(ID)
+                Unread.remove(ID)
+            elif command == 2:
+                Trash.append(ID)
+                Read.remove(ID)
+            elif command == 3:
+                Trash.append(ID)
+                Unread.remove(ID)
+            elif command == 4:
+                Read.append(ID)
+                Trash.remove(ID)
+            else:
+                pass
+        return list(map(self.insertToLinkList, [Unread, Read, Trash]))
+	
