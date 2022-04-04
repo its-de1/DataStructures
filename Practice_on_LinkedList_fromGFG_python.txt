@@ -1545,3 +1545,221 @@ def union(h1,h2):
                 pass
         return list(map(self.insertToLinkList, [Unread, Read, Trash]))
 	
+#COunt Triplets
+def countTriplets(head,x):
+    # code here
+    new_node = head
+    node_ref = head
+    count = 1
+    counter = 0
+    
+    while(new_node.nxt!=None):
+        count +=1
+        new_node = new_node.nxt
+    new_list = [0]*count
+    
+    
+    for i in range(count):
+        new_list[i]= node_ref.val
+        node_ref = node_ref.nxt
+    new_list.sort()
+    for i in range(count):
+        low = i+1
+        high = count-1
+        while (low<high):
+            sum = new_list[i]+new_list[low]+new_list[high]
+            if(sum == x):
+                counter+=1
+                low+=1
+                high-=1
+            elif(sum>x):
+                high-=1
+            else:
+                low+=1
+                
+    return counter
+ 
+ #Insertion Sort for Singly Linked List
+ def insertionSort(self, head):
+        #code here
+        temp=head
+        a=[]
+        while temp:
+            a.append(temp.data)
+            temp=temp.next
+        for i in range(0,len(a)):
+            j=i
+            while (j>0):
+                if a[j-1]>a[j]:
+                    temp1=a[j]
+                    a[j]=a[j-1]
+                    a[j-1]=temp1
+                else:
+                    break
+                j-=1
+            
+        temp1=Node(-1)
+        temp2=temp1
+        for i in a:
+            d=Node(i)
+            temp1.next=d
+            temp1=temp1.next
+        return temp2.next
+#Remove all occurences of duplicates in a linked list
+def removeAllDuplicates(self, head):
+        #code here
+        if head==None or head.next==None:
+            return head
+        prev = None
+        curr = head
+        while curr != None:
+            temp = curr.next
+            delNode = None
+            while temp != None and temp.data == curr.data:
+                delNode = temp.data
+                temp = temp.next
+            if delNode == curr.data:
+                if prev == None:
+                    head = temp
+                    curr = temp
+                else:
+                    prev.next = temp
+                    curr = temp
+            else:
+                prev = curr
+                curr = temp
+        return head
+	
+	
+#Partition a Linked List around a given value
+def partition(self, head, x):
+        #code here
+        temp=head
+        a=[]
+        while temp:
+            a.append(temp.data)
+        a.sort()
+        node=Node(-1)
+        node1=node
+        while node1:
+            d=Node(a[i])
+            temp.next=d
+            node1=node1.temp
+        return node.next 
+	
+#Add two numbers represented by Linked List
+def addSameSize(h1,h2,carry):
+    def sameSize(h1, h2, carry):
+        sum = h1.data + h2.data
+        res = None
+        if(h1.next):
+            res = sameSize(h1.next, h2.next, carry)
+        sum+=carry.data
+        carry.data = sum//10;
+        x = Node(sum%10)
+        x.next = res
+        return x
+    return sameSize(h1, h2, carry)
+
+#Function to add remaining carry.
+def addCarryToRemaining(head, curr, result_list,carry):
+    def addCarry(head, curr, result_list, carry):
+        if (head != curr):
+            addCarry(head.next, curr, result_list, carry)
+            sum = (head.data+carry.data)
+            carry.data = sum//10
+            next = result_list.head
+            x = Node(sum%10)
+            x.next = next
+            result_list.head = x
+    addCarry(head, curr, result_list, carry)
+  
+ #Length of longest palindrome in linked list
+ n=head
+    list1=[]
+   
+    while n!=None:
+        list1.append(n.data)
+        n=n.next
+       
+    length=len(list1)
+   
+    maximum=1
+   
+    for i in range(length-1):
+        for j in range(i+1,length):
+            if list1[i:j+1]==list1[i:j+1][::-1]:
+               
+               count=j+1-i
+               maximum=max(maximum,count)
+               
+    return maximum
+    
+#Reverse alternate nodes in Link List
+
+def rearrange(self, head):
+        # Code here
+        if head.next is None:
+           return head
+        t1 = head 
+        x = t1.next.next
+        firstTime = True
+        while t1.next is not None and x is not None:
+            t2 = t1.next
+            if firstTime:
+                t2.next = None
+                firstTime = False
+            t1.next = x
+            t1 = t1.next
+            if x.next is None:
+                t1.next = t2
+                return head
+            x = t1.next.next
+            t1.next.next = t2
+        return head
+	
+#Polynomial Addition
+def addPolynomial(self, p1, p2):
+        # Code here
+        if p1 == None:
+            return p2
+        if p2 == None:
+            return p1
+        if p1.power > p2.power:
+            p1.next = self.addPolynomial(p1.next,p2)
+            return p1
+        elif p1.power < p2.power:
+            p2.next = self.addPolynomial(p1,p2.next)  
+            return p2
+        else:
+            p1.coef = p1.coef+p2.coef
+            p1.next = self.addPolynomial(p1.next,p2.next)
+        return p1
+
+#Binary Tree to CDLL
+def __init__(self):
+        self.prev = None
+        self.head = None
+        
+    def helper(self, root):
+        if root == None:
+            return
+        
+        self.helper(root.left)
+        
+        if self.head == None:
+            self.head = root
+        else:
+            self.prev.right = root
+            root.left = self.prev
+        self.prev = root
+        
+        self.helper(root.right)
+    
+    def bTreeToClist(self, root):
+        self.helper(root)
+        self.prev.right = self.head
+        self.head.left = self.prev
+        return self.head
+
+#Delete nodes having greater value on right
