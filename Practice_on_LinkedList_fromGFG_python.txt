@@ -1762,4 +1762,206 @@ def __init__(self):
         self.head.left = self.prev
         return self.head
 
+#Intersection Point in Y Shapped Linked Lists
+count1=0
+    count2=0
+    temp1=head1
+    temp2=head2
+    while temp1:
+        temp1=temp1.next
+        count1+=1
+    while temp2:
+        temp2=temp2.next
+        count2+=1
+    if count2>count1:
+        temp=head2
+        tempt=head1
+        d=count2-count1
+    else:
+        temp=head1
+        tempt=head2
+        d=count1-count2
+    for i in range(d):
+        temp=temp.next
+    while temp is not None or tempt is not None:
+        if temp==tempt:
+            return temp.data
+        else:
+            temp=temp.next
+            tempt=tempt.next
 #Delete nodes having greater value on right
+    def reverse(head):
+        temp=head
+        prev=None
+        while temp:
+            nextt=temp.next
+            temp.next=prev
+            prev=temp
+            temp=nextt
+        head=prev
+        return prev
+    def compute(self,head):
+        #Your code here
+        
+        #reverse List
+        temp1=Solution.reverse(head)
+        
+        maxi=temp1.data
+        prev=temp1
+        
+        temp=temp1
+        temp=temp.next
+        while temp:
+            if (temp.data<maxi):
+                prev=temp.next
+                temp=temp.next
+            else:
+                maxi=temp.data
+                prev=temp
+                temp=temp.next
+                
+        return Solution.reverse(temp)
+
+#Merge Sort for Linked List
+def append(self, new_value):
+         
+        # Allocate new node
+        new_node = Node(new_value)
+         
+        # if head is None, initialize it to new node
+        if self.head is None:
+            self.head = new_node
+            return
+        curr_node = self.head
+        while curr_node.next is not None:
+            curr_node = curr_node.next
+             
+        # Append the new node at the end
+        # of the linked list
+        curr_node.next = new_node
+         
+    def sortedMerge(self, a, b):
+        result = None
+         
+        # Base cases
+        if a == None:
+            return b
+        if b == None:
+            return a
+             
+        # pick either a or b and recur..
+        if a.data <= b.data:
+            result = a
+            result.next = self.sortedMerge(a.next, b)
+        else:
+            result = b
+            result.next = self.sortedMerge(a, b.next)
+        return result
+     
+    #Function to sort the given linked list using Merge Sort.
+    def mergeSort(self, h):
+        if h == None or h.next == None:
+            return h
+ 
+        # get the middle of the list
+        middle = self.getMiddle(h)
+        nexttomiddle = middle.next
+ 
+        # set the next of middle node to None
+        middle.next = None
+ 
+        # Apply mergeSort on left list
+        left = self.mergeSort(h)
+         
+        # Apply mergeSort on right list
+        right = self.mergeSort(nexttomiddle)
+ 
+        # Merge the left and right lists
+        sortedlist = self.sortedMerge(left, right)
+        return sortedlist
+    
+    def getMiddle(self, head):
+        if (head == None):
+            return head
+ 
+        slow = head
+        fast = head
+ 
+        while (fast.next != None and
+               fast.next.next != None):
+            slow = slow.next
+            fast = fast.next.next
+             
+        return slow
+#def append(self, new_value):
+         
+        # Allocate new node
+        new_node = Node(new_value)
+         
+        # if head is None, initialize it to new node
+        if self.head is None:
+            self.head = new_node
+            return
+        curr_node = self.head
+        while curr_node.next is not None:
+            curr_node = curr_node.next
+             
+        # Append the new node at the end
+        # of the linked list
+        curr_node.next = new_node
+         
+    def sortedMerge(self, a, b):
+        result = None
+         
+        # Base cases
+        if a == None:
+            return b
+        if b == None:
+            return a
+             
+        # pick either a or b and recur..
+        if a.data <= b.data:
+            result = a
+            result.next = self.sortedMerge(a.next, b)
+        else:
+            result = b
+            result.next = self.sortedMerge(a, b.next)
+        return result
+     
+    #Function to sort the given linked list using Merge Sort.
+    def mergeSort(self, h):
+        if h == None or h.next == None:
+            return h
+ 
+        # get the middle of the list
+        middle = self.getMiddle(h)
+        nexttomiddle = middle.next
+ 
+        # set the next of middle node to None
+        middle.next = None
+ 
+        # Apply mergeSort on left list
+        left = self.mergeSort(h)
+         
+        # Apply mergeSort on right list
+        right = self.mergeSort(nexttomiddle)
+ 
+        # Merge the left and right lists
+        sortedlist = self.sortedMerge(left, right)
+        return sortedlist
+    
+    def getMiddle(self, head):
+        if (head == None):
+            return head
+ 
+        slow = head
+        fast = head
+ 
+        while (fast.next != None and
+               fast.next.next != None):
+            slow = slow.next
+            fast = fast.next.next
+             
+        return slow
+	
+#
