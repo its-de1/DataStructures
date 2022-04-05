@@ -1,0 +1,92 @@
+#Check BST
+boolean isBST(Node node)
+    {
+       if (node == null)
+        return true;
+     
+    /* False if left is > than node */
+    if (node.left != null && node.left.data > node.data)
+        return false;
+     
+    /* False if right is < than node */
+    if (node.right != null && node.right.data < node.data)
+        return false;
+     
+    /* False if, recursively, the left or right is not a BST */
+    if (!isBST(node.left) || !isBST(node.right))
+        return false;
+     
+    /* Passing all that, it's a BST */
+    return true;
+    }
+    
+  #Diameter of a Binary Tree
+  def diameter(self,root):
+        # Code here
+        def dia(root):
+            if not root:
+                return 0
+            nonlocal ans
+            
+            l=dia(root.left)
+            r=dia(root.right)
+            
+            ans=max(ans,1+l+r)
+            
+            return 1+max(l,r)
+            
+        ans=float("-inf")
+        dia(root)
+        return ans
+  
+ #Check for Balanced Tree
+  def isBalanced(self,root):
+        ans = self.isBalancedUtil(root)
+        if ans != -1:
+            return True
+        return False
+        
+    def isBalancedUtil(self,root):
+        if root is None:
+            return 0
+        lh = self.isBalancedUtil(root.left)
+        if lh == -1:
+            return -1
+        rh = self.isBalancedUtil(root.right)
+        # print(lh,rh)
+        if rh == -1:
+            return -1
+        if abs(lh-rh) > 1:
+            return -1
+        return max(lh, rh) + 1
+
+
+#Determine if Two Trees are Identical 
+def isIdentical(self,root1, root2):
+        # Code here
+        if(root1==None and root2==None):
+            return(True)
+        if(root1!=None and root2==None):
+            return False
+        if(root1==None and root2!=None):
+            return False
+        if(root1.data!=root2.data):
+            return(False)
+        else:
+           return(self.isIdentical(root1.left,root2.left) and self.isIdentical(root1.right,root2.right))
+
+#Mirror Tree
+def mirrortraversal(self,root,res):
+        if root:
+            root.left,root.right = root.right,root.left
+            self.mirrortraversal(root.left,res)
+            res.append(root.data)
+            self.mirrortraversal(root.right,res)
+
+        return  res
+    def mirror(self,root):
+        # Code here
+        res = []
+        val = self.mirrortraversal(root,res)
+        return val
+        
