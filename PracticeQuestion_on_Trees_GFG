@@ -90,3 +90,377 @@ def mirrortraversal(self,root,res):
         val = self.mirrortraversal(root,res)
         return val
         
+#Vertical Traversal of Binary Tree 
+def verticalOrder(self, root): 
+        #Your code here
+        levels = {}
+        q = [(root, 0)]
+        while q:
+            nd, ind = q.pop(0)
+   
+            if ind not in levels:
+                levels[ind] = [nd.data]
+            else:
+                levels[ind].append(nd.data)
+            if nd.left:
+                q.append((nd.left, ind + 1))
+   
+            if nd.right:
+                q.append((nd.right, ind - 1))
+               
+        op = []
+        for v in sorted(levels, reverse=True):
+            op += levels[v]
+            return op
+       
+#Boundary Traversal of binary tree
+def printBoundaryView(self, root):
+        # Code here
+        if (root == None): return []
+        res, stk = deque(), deque()
+        res.append(root.data)
+        if (root.left != None):
+            stk.append((root.left, 0))
+            while (stk):
+                tree_node, curr_diag = stk.pop()
+                if ((curr_diag == 0) or ((tree_node.left == None) and (tree_node.right == None))): res.append(tree_node.data)
+                if (tree_node.right != None): stk.append((tree_node.right, curr_diag if (tree_node.left == None) else curr_diag + 1))
+                if (tree_node.left != None): stk.append((tree_node.left, curr_diag))
+        if (root.right != None):
+            other_res = deque()
+            stk.append((root.right, 0))
+            while (stk):
+                tree_node, curr_diag = stk.pop()
+                if ((curr_diag == 0) or ((tree_node.left == None) and (tree_node.right == None))): other_res.appendleft(tree_node.data)
+                if (tree_node.left != None): stk.append((tree_node.left, curr_diag if (tree_node.right == None) else curr_diag + 1))
+                if (tree_node.right != None): stk.append((tree_node.right, curr_diag))
+            res.extend(other_res)
+        return res
+    
+ #Sum Tree
+ def isSumTree(self,root):
+        # Code here
+        def getSum(root:Node):
+            if not root:
+                return 0
+           
+            return root.data + getSum(root.left) + getSum(root.right)
+       
+        def dfs(root:Node):
+       
+            if not root:
+                return True
+           
+            sm = True
+            if root.left and root.right:
+                sm = ((getSum(root) - root.data) == root.data)
+               
+            return sm and dfs(root.left) and dfs(root.right)
+       
+        return dfs(root)
+     
+ #Height of Binary Tree
+ def height(self, root):
+        # code here
+        if root==None:
+            return 0
+        lheight=Solution.height(self,root.left)
+        rheight=Solution.height(self,root.right)
+        if lheight<rheight:
+            return rheight+1
+        return lheight+1
+   
+ #Postorder Traversal (Iterative) 
+ def postOrder(self,node):
+        # code here
+        q = [node]
+        ans = []
+       
+        while(q):
+            val = q.pop(-1)
+            if val.left:
+                left = val.left
+                val.left = None
+                q.append(val)
+                q.append(left)
+                continue
+            if val.right:
+                right = val.right
+                val.right = None
+                q.append(val)
+                q.append(right)
+                continue
+            ans.append(val.data)
+           
+        return ans
+     
+ #Inorder Traversal (Iterative)
+ def inOrder(self, root):
+        # code here
+        if root is None:
+            return 
+        st = []
+        curr = root
+       
+        while curr!= None:
+           st.append(curr)
+           curr = curr.left
+       
+        while len(st)>0:
+            curr = st.pop()
+            print(curr.data,end=" ")
+            curr = curr.right
+           
+            while curr!=None:
+               st.append(curr)
+               curr = curr.left
+        return st
+     
+#Preorder traversal (Iterative) 
+def preOrder(self,root):
+        # code here
+        if root ==None:
+           return 
+        st = [root]
+        while len(st)>0:
+            curr = st.pop()
+            print(curr.data, end=" ")
+            if curr.right is not None:
+                st.append(curr.right)
+       
+            if curr.left is not None:
+                st.append(curr.left)
+        return st
+        
+        
+ #Boundary Traversal of binary tree
+ def printBoundaryView(self, root):
+        # Code here
+        if (root == None): return []
+        res, stk = deque(), deque()
+        res.append(root.data)
+        if (root.left != None):
+            stk.append((root.left, 0))
+            while (stk):
+                tree_node, curr_diag = stk.pop()
+                if ((curr_diag == 0) or ((tree_node.left == None) and (tree_node.right == None))): res.append(tree_node.data)
+                if (tree_node.right != None): stk.append((tree_node.right, curr_diag if (tree_node.left == None) else curr_diag + 1))
+                if (tree_node.left != None): stk.append((tree_node.left, curr_diag))
+        if (root.right != None):
+            other_res = deque()
+            stk.append((root.right, 0))
+            while (stk):
+                tree_node, curr_diag = stk.pop()
+                if ((curr_diag == 0) or ((tree_node.left == None) and (tree_node.right == None))): other_res.appendleft(tree_node.data)
+                if (tree_node.left != None): stk.append((tree_node.left, curr_diag if (tree_node.right == None) else curr_diag + 1))
+                if (tree_node.right != None): stk.append((tree_node.right, curr_diag))
+            res.extend(other_res)
+        return res
+    
+ #Sum Tree
+ def isSumTree(self,root):
+        # Code here
+        def getSum(root:Node):
+            if not root:
+                return 0
+           
+            return root.data + getSum(root.left) + getSum(root.right)
+       
+        def dfs(root:Node):
+       
+            if not root:
+                return True
+           
+            sm = True
+            if root.left and root.right:
+                sm = ((getSum(root) - root.data) == root.data)
+               
+            return sm and dfs(root.left) and dfs(root.right)
+       
+        return dfs(root)
+     
+ #Height of Binary Tree
+ def height(self, root):
+        # code here
+        if root==None:
+            return 0
+        lheight=Solution.height(self,root.left)
+        rheight=Solution.height(self,root.right)
+        if lheight<rheight:
+            return rheight+1
+        return lheight+1
+   
+ #Postorder Traversal (Iterative) 
+ def postOrder(self,node):
+        # code here
+        q = [node]
+        ans = []
+       
+        while(q):
+            val = q.pop(-1)
+            if val.left:
+                left = val.left
+                val.left = None
+                q.append(val)
+                q.append(left)
+                continue
+            if val.right:
+                right = val.right
+                val.right = None
+                q.append(val)
+                q.append(right)
+                continue
+            ans.append(val.data)
+           
+        return ans
+     
+ #Inorder Traversal (Iterative)
+ def inOrder(self, root):
+        # code here
+        if root is None:
+            return 
+        st = []
+        curr = root
+       
+        while curr!= None:
+           st.append(curr)
+           curr = curr.left
+       
+        while len(st)>0:
+            curr = st.pop()
+            print(curr.data,end=" ")
+            curr = curr.right
+           
+            while curr!=None:
+               st.append(curr)
+               curr = curr.left
+        return st
+     
+#Preorder traversal (Iterative) 
+def preOrder(self,root):
+        # code here
+        if root ==None:
+           return 
+        st = [root]
+        while len(st)>0:
+            curr = st.pop()
+            print(curr.data, end=" ")
+            if curr.right is not None:
+                st.append(curr.right)
+       
+            if curr.left is not None:
+                st.append(curr.left)
+        return st
+      
+ #Kth largest element in BST 
+ def kthLargest(self,root, k):
+        #your code here
+        li=[]
+        def posti(root,k):
+            nonlocal li
+            if not root:
+                return
+            posti(root.right,k)
+            if len(li)==k:
+                return
+            li.append(root.data)
+            posti(root.left,k)
+            
+            
+        posti(root,k)
+        return li[-1]
+  
+  #Children Sum Parent 
+  def isSumProperty(self, root):
+        # code here
+        if root.left == None and root.right == None :
+            return 1
+        elif root.left == None:
+            return 1 if (root.data == root.right.data) and self.isSumProperty(root.right) else 0
+        elif root.right == None:
+            return 1 if (root.data == root.left.data) and self.isSumProperty(root.left) else 0
+        else:
+            return 1 if (root.data == root.left.data+root.right.data) and self.isSumProperty(root.left) and self.isSumProperty(root.right) else 0
+
+#Odd even level difference
+def getLevelDiff(self, root):
+        # Code here
+        flag = True
+        q = [root]
+        oddS = 0
+        evenS = 0
+       
+        while q:
+            n = len(q)
+            temp = 0
+            for _ in range(n):
+                node = q.pop(0)
+                temp += node.data
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+            if flag:
+                oddS += temp
+            else:
+                evenS += temp
+            flag = not flag
+        return oddS-evenS
+       
+ #Array to BST
+ def get_new_list(self,array,new_list):
+        n=len(array)
+        if n!=0:
+            if n%2 !=0:
+                middle_index=n//2
+            else:
+                middle_index=n//2-1
+            new_list.append(array[middle_index])
+            array.pop(middle_index)
+            self.get_new_list(array=array[:middle_index],new_list=new_list)
+            self.get_new_list(array=array[middle_index:],new_list=new_list)
+        
+	def sortedArrayToBST(self, nums):
+	    # code here
+        new_list=[]
+        self.get_new_list(array=nums,new_list=new_list)
+        nums=new_list
+        return nums
+       
+  #Largest value in each level
+  def largestValues(self, root):
+        #code here
+        q=deque([])
+        bfs=[]
+        ans=[]
+        q.append(root)
+        while(len(q)!=0):
+            lev=[]
+            level=len(q)
+            for i in range(level):
+                cur=q.popleft()
+                lev.append(cur.data)
+                if(cur.left!=None):
+                    q.append(cur.left)
+                if(cur.right!=None):
+                    q.append(cur.right)
+            bfs.append(lev)
+        for i in range(len(bfs)):
+            maxi=max(bfs[i])
+               # print(maxi)
+            ans.append(maxi)
+        return(ans)
+    
+  #Inorder Successor in BST
+  def inorderSuccessor(self, root, x):
+        # Code here
+        ans = None
+        while root != None:
+            if root.data > x.data:
+                ans = root
+                root = root.left
+            else:
+                root = root.right
+        return ans
+        
+     
