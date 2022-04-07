@@ -463,4 +463,174 @@ def getLevelDiff(self, root):
                 root = root.right
         return ans
         
+#Find a pair with given target in BST
+def inorder(self , root , arr):
+        if root == None:
+            return
+        self.inorder(root.left , arr)
+        arr.append(root.data)
+        self.inorder(root.right , arr)
+    def isPairPresent(self,root, target): 
+        arr = []
+        self.inorder(root , arr)
+        low  = 0
+        high = len(arr) - 1
+       
+        while low < high:
+            curr = arr[low] + arr[high]
+            if curr == target:
+                return 1
+               
+            if curr < target:
+                low+=1
+            if curr> target:
+                high-=1
+        return 0
+
+#Maximum sum leaf to root path
+def maxPathSum(self, root):
+        #code here
+        ans = [0]
+        res = [-999999999]
+        self.preorder(root, ans, res)
+        return res[0]
+       
+    def preorder(self, root, ans, res):
+        if root == None:
+            return
+        ans[0] += root.data
+        if root.left == root.right == None:
+            res[0] = max(res[0], ans[0])
+        self.preorder(root.left, ans, res)
+        self.preorder(root.right, ans, res)
+        ans[0] -= root.data
+
+#Remove BST keys outside given range
+def removekeys(self, root, l, r):
+        #code here
+   
+        if root==None:
+            return 
+        root.left = Solution.removekeys(self,root.left,l,r)
+        root.right = Solution.removekeys(self,root.right,l,r)
+        if root.data < l:
+            rChild = root.right
+            return rChild
+        
+        if root.data > r:
+            lChild = root.left
+            return lChild    
+        
+        return root    
+	
+#BST to greater sum tree
+class Solution:
+    def transformTree(self, root):
+        ans = [0]
+        self.help(root, ans)
+        return root
+    def help(self, root, ans):
+            if root == None:
+                return
+            self.help(root.right, ans)
+            x = root.data
+            root.data = ans[0]
+            ans[0] += x
+            self.help(root.left, ans)
+	 
+#Construct Tree from Preorder Traversal
+def rec_build_tree(pre, preLN, idx):
+    if idx == len(pre):
+        return None, idx
+    root = Node(pre[idx])
+    root_type = preLN[idx]
+    idx += 1
+    if root_type == 'N':
+        root.left, idx = rec_build_tree(pre, preLN, idx)
+        root.right, idx = rec_build_tree(pre, preLN, idx)
+    return root, idx
+def constructTree(pre, preLN, n):
+    # code here
+    idx = 0
+    root, _ = rec_build_tree(pre, preLN, idx)
+    return root
+   
+#Clone a Binary Tree
+def simple_clone(self, root):
+        if root is None:
+            return None
+        else:
+            new_root = Node(root.data)
+            if root.random:
+                new_root.random = Node(root.random.data)
+            new_root.left = self.simple_clone(root.left)
+            new_root.right = self.simple_clone(root.right)
+            
+        return new_root
+    def cloneTree(self, tree):
+        #code here
+        new_root = self.simple_clone(root)
+        
+        return new_root
+
+#Maximum sum of Non-adjacent nodes
+def solve(root, dp):
+    if not root:
+        return 0
+   
+    if root in dp:
+        return dp[root]
+    incl = root.data
+    if root.left:
+        incl +=solve(root.left.left, dp)
+        incl +=solve(root.left.right, dp)
+    if root.right:
+        incl +=solve(root.right.left, dp)
+        incl +=solve(root.right.right, dp)
+    excl = solve(root.left, dp) + solve(root.right, dp)
+    dp[root] = max(incl, excl)
+    return dp[root]
+class Solution:
+   #Function to return the maximum sum of non-adjacent nodes.
+   def getMaxSum(self,root):
+       ans = solve(root, dict())
+       return ans
      
+  
+#Sum Tree
+def isSumTree(self,root):
+        # Code here
+        def getSum(root:Node):
+            if not root:
+                return 0
+           
+            return root.data + getSum(root.left) + getSum(root.right)
+       
+        def dfs(root:Node):
+       
+            if not root:
+                return True
+           
+            sm = True
+            if root.left and root.right:
+                sm = ((getSum(root) - root.data) == root.data)
+               
+            return sm and dfs(root.left) and dfs(root.right)
+       
+        return dfs(root)
+	
+#Check if subtree
+def isSubTree(self, T, S):
+        # Code her
+        if not T:
+            return False
+        if not S:
+            return True
+        if Solution.mirror(T,S):
+            return True
+        return (self.isSubTree(T.left,S) or self.isSubTree(T.right,S))
+        
+    def mirror(t,s):
+        if not s or not t:
+            return t==s
+        return (t.data==s.data) and Solution.mirror(t.left,s.left) and Solution.mirror(t.right,s.right)
